@@ -1,0 +1,13 @@
+const express = require('express')
+const app = express()
+const morgan = require('morgan')
+const dotenv = require('dotenv')
+const db = require('./database/db')
+const routerReg = require('./routes/register')
+dotenv.config({path:'config.env'})
+app.use(morgan('dev'))
+app.use(express.json())
+db()
+const PORT = process.env.PORT || 8000
+app.use('/',routerReg)
+app.listen(PORT,()=>console.log(`Server is running on port ${PORT}`))
